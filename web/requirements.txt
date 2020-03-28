@@ -1,1 +1,6 @@
 Django==2.2.10
+
+# Psycopg is a PostgreSQL for the Python programming language
+# It is a wrapper for the libpq, the official PostgreSQL client library.
+# https://www.psycopg.org/
+psycopg2==2.8.4

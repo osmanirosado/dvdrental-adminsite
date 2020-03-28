@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+
+  web:
+    build: web
+    image: osmanirosado/dvdrental-website
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./web:/home/django/project
+    ports:
+      - 8096:8000
+    user: 1000:1000
+
+  db:
+    image: osmanirosado/dvdrental-database
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+
+  pgadmin:
+    image: dpage/pgadmin4:4.18
+    restart: always
+    ports:
+      - 9096:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ernesto
+      PGADMIN_DEFAULT_PASSWORD: example
+

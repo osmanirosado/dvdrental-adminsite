@@ -15,7 +15,9 @@ services:
     image: osmanirosado/dvdrental-database
     restart: always
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
+      POSTGRES_PORT: 5432
 
   pgadmin:
     image: dpage/pgadmin4:4.18

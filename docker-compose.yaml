@@ -10,6 +10,8 @@ services:
     ports:
       - 8096:8000
     user: 1000:1000
+    depends_on:
+      - db
 
   db:
     image: osmanirosado/dvdrental-database:2019.05
@@ -27,4 +29,6 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: ernesto
       PGADMIN_DEFAULT_PASSWORD: example
+    depends_on:
+      - db
 

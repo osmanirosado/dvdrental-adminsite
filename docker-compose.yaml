@@ -14,7 +14,8 @@ services:
       - db
 
   db:
-    image: osmanirosado/dvdrental-database:2019.05
+    build: db
+    image: osmanirosado/dvdrental-website-db:2020.04.02
     restart: always
     environment:
       POSTGRES_USER: postgres

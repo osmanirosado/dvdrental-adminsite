@@ -10,6 +10,7 @@ class CityInline(admin.StackedInline):
 
 class CountryAdmin(admin.ModelAdmin):
     inlines = [CityInline]
+    search_fields = ['country']
 
 
 admin.site.register(Country, CountryAdmin)

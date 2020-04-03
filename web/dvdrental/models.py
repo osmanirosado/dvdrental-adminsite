@@ -12,7 +12,7 @@ class Actor(models.Model):
     actor_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -27,7 +27,7 @@ class Address(models.Model):
     city = models.ForeignKey('City', models.PROTECT)
     postal_code = models.CharField(max_length=10, blank=True, null=True)
     phone = models.CharField(max_length=20)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -37,7 +37,7 @@ class Address(models.Model):
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=25)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -48,7 +48,7 @@ class City(models.Model):
     city_id = models.AutoField(primary_key=True)
     city = models.CharField(max_length=50)
     country = models.ForeignKey('Country', models.PROTECT)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -96,7 +96,7 @@ class Film(models.Model):
     length = models.SmallIntegerField(blank=True, null=True)
     replacement_cost = models.DecimalField(max_digits=5, decimal_places=2)
     rating = models.TextField(blank=True, null=True)  # This field type is a guess.
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
     special_features = models.TextField(blank=True, null=True)  # This field type is a guess.
     fulltext = models.TextField()  # This field type is a guess.
 
@@ -109,7 +109,7 @@ class FilmActor(models.Model):
     film_actor_id = models.AutoField(primary_key=True)
     actor = models.OneToOneField(Actor, on_delete=models.PROTECT)
     film = models.OneToOneField(Film, models.PROTECT)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -121,7 +121,7 @@ class FilmCategory(models.Model):
     film_category_id = models.AutoField(primary_key=True)
     film = models.OneToOneField(Film, models.PROTECT)
     category = models.OneToOneField(Category, models.PROTECT)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -133,7 +133,7 @@ class Inventory(models.Model):
     inventory_id = models.AutoField(primary_key=True)
     film = models.ForeignKey(Film, models.PROTECT)
     store_id = models.SmallIntegerField()
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -143,7 +143,7 @@ class Inventory(models.Model):
 class Language(models.Model):
     language_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -170,7 +170,7 @@ class Rental(models.Model):
     customer = models.OneToOneField(Customer, models.PROTECT)
     return_date = models.DateTimeField(blank=True, null=True)
     staff = models.ForeignKey('Staff', models.PROTECT)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
@@ -188,7 +188,7 @@ class Staff(models.Model):
     active = models.BooleanField()
     username = models.CharField(max_length=16)
     password = models.CharField(max_length=40, blank=True, null=True)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
     picture = models.BinaryField(blank=True, null=True)
 
     class Meta:
@@ -200,7 +200,7 @@ class Store(models.Model):
     store_id = models.AutoField(primary_key=True)
     manager_staff = models.OneToOneField(Staff, models.PROTECT)
     address = models.ForeignKey(Address, models.PROTECT)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False

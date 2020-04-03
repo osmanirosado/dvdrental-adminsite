@@ -26,6 +26,7 @@ admin.site.register(City, CityAdmin)
 
 class FilmAdmin(admin.ModelAdmin):
     list_display = ['title', 'release_year', 'language', 'length', 'rating']
+    list_filter = ['categories']
 
 
 admin.site.register(Film, FilmAdmin)

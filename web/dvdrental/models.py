@@ -43,6 +43,9 @@ class Category(models.Model):
         managed = False
         db_table = 'category'
 
+    def __str__(self):
+        return self.name
+
 
 class City(models.Model):
     city_id = models.AutoField(primary_key=True)
@@ -99,6 +102,7 @@ class Film(models.Model):
     last_update = models.DateTimeField(auto_now=True)
     special_features = models.TextField(blank=True, null=True)  # This field type is a guess.
     fulltext = models.TextField()  # This field type is a guess.
+    categories = models.ManyToManyField('Category', through='FilmCategory')
 
     class Meta:
         managed = False

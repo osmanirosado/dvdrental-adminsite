@@ -24,7 +24,7 @@ class Address(models.Model):
     address = models.CharField(max_length=50)
     address2 = models.CharField(max_length=50, blank=True, null=True)
     district = models.CharField(max_length=20)
-    city = models.ForeignKey('City', models.DO_NOTHING)
+    city = models.ForeignKey('City', models.PROTECT)
     postal_code = models.CharField(max_length=10, blank=True, null=True)
     phone = models.CharField(max_length=20)
     last_update = models.DateTimeField()
@@ -47,7 +47,7 @@ class Category(models.Model):
 class City(models.Model):
     city_id = models.AutoField(primary_key=True)
     city = models.CharField(max_length=50)
-    country = models.ForeignKey('Country', models.DO_NOTHING)
+    country = models.ForeignKey('Country', models.PROTECT)
     last_update = models.DateTimeField()
 
     class Meta:
@@ -71,7 +71,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
     email = models.CharField(max_length=50, blank=True, null=True)
-    address = models.ForeignKey(Address, models.DO_NOTHING)
+    address = models.ForeignKey(Address, models.PROTECT)
     activebool = models.BooleanField()
     create_date = models.DateField()
     last_update = models.DateTimeField(blank=True, null=True)
@@ -87,7 +87,7 @@ class Film(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     release_year = models.IntegerField(blank=True, null=True)
-    language = models.ForeignKey('Language', models.DO_NOTHING)
+    language = models.ForeignKey('Language', models.PROTECT)
     rental_duration = models.SmallIntegerField()
     rental_rate = models.DecimalField(max_digits=4, decimal_places=2)
     length = models.SmallIntegerField(blank=True, null=True)
@@ -103,10 +103,10 @@ class Film(models.Model):
 
 
 class FilmActor(models.Model):
-    actor = models.ForeignKey(Actor, models.DO_NOTHING)
-    film = models.ForeignKey(Film, models.DO_NOTHING)
-    last_update = models.DateTimeField()
     film_actor_id = models.AutoField(primary_key=True)
+    actor = models.OneToOneField(Actor, on_delete=models.PROTECT)
+    film = models.OneToOneField(Film, models.PROTECT)
+    last_update = models.DateTimeField()
 
     class Meta:
         managed = False
@@ -115,10 +115,10 @@ class FilmActor(models.Model):
 
 
 class FilmCategory(models.Model):
-    film = models.ForeignKey(Film, models.DO_NOTHING)
-    category = models.ForeignKey(Category, models.DO_NOTHING)
-    last_update = models.DateTimeField()
     film_category_id = models.AutoField(primary_key=True)
+    film = models.OneToOneField(Film, models.PROTECT)
+    category = models.OneToOneField(Category, models.PROTECT)
+    last_update = models.DateTimeField()
 
     class Meta:
         managed = False
@@ -128,7 +128,7 @@ class FilmCategory(models.Model):
 
 class Inventory(models.Model):
     inventory_id = models.AutoField(primary_key=True)
-    film = models.ForeignKey(Film, models.DO_NOTHING)
+    film = models.ForeignKey(Film, models.PROTECT)
     store_id = models.SmallIntegerField()
     last_update = models.DateTimeField()
 
@@ -149,9 +149,9 @@ class Language(models.Model):
 
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
-    customer = models.ForeignKey(Customer, models.DO_NOTHING)
-    staff = models.ForeignKey('Staff', models.DO_NOTHING)
-    rental = models.ForeignKey('Rental', models.DO_NOTHING)
+    customer = models.ForeignKey(Customer, models.PROTECT)
+    staff = models.ForeignKey('Staff', models.PROTECT)
+    rental = models.ForeignKey('Rental', models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=5, decimal_places=2)
     payment_date = models.DateTimeField()
 
@@ -163,10 +163,10 @@ class Payment(models.Model):
 class Rental(models.Model):
     rental_id = models.AutoField(primary_key=True)
     rental_date = models.DateTimeField()
-    inventory = models.ForeignKey(Inventory, models.DO_NOTHING)
-    customer = models.ForeignKey(Customer, models.DO_NOTHING)
+    inventory = models.OneToOneField(Inventory, models.PROTECT)
+    customer = models.OneToOneField(Customer, models.PROTECT)
     return_date = models.DateTimeField(blank=True, null=True)
-    staff = models.ForeignKey('Staff', models.DO_NOTHING)
+    staff = models.ForeignKey('Staff', models.PROTECT)
     last_update = models.DateTimeField()
 
     class Meta:
@@ -179,7 +179,7 @@ class Staff(models.Model):
     staff_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
-    address = models.ForeignKey(Address, models.DO_NOTHING)
+    address = models.ForeignKey(Address, models.PROTECT)
     email = models.CharField(max_length=50, blank=True, null=True)
     store_id = models.SmallIntegerField()
     active = models.BooleanField()
@@ -195,8 +195,8 @@ class Staff(models.Model):
 
 class Store(models.Model):
     store_id = models.AutoField(primary_key=True)
-    manager_staff = models.ForeignKey(Staff, models.DO_NOTHING, unique=True)
-    address = models.ForeignKey(Address, models.DO_NOTHING)
+    manager_staff = models.OneToOneField(Staff, models.PROTECT)
+    address = models.ForeignKey(Address, models.PROTECT)
     last_update = models.DateTimeField()
 
     class Meta:

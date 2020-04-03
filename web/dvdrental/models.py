@@ -58,11 +58,14 @@ class City(models.Model):
 class Country(models.Model):
     country_id = models.AutoField(primary_key=True)
     country = models.CharField(max_length=50)
-    last_update = models.DateTimeField()
+    last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
         managed = False
         db_table = 'country'
+
+    def __str__(self):
+        return self.country
 
 
 class Customer(models.Model):

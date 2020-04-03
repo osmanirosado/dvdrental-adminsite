@@ -112,6 +112,9 @@ class Film(models.Model):
         managed = False
         db_table = 'film'
 
+    def __str__(self):
+        return self.title
+
 
 class FilmActor(models.Model):
     film_actor_id = models.AutoField(primary_key=True)

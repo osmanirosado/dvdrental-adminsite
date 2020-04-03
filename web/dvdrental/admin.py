@@ -17,6 +17,7 @@ admin.site.register(Country, CountryAdmin)
 
 class CityAdmin(admin.ModelAdmin):
     list_display = ['city', 'country']
+    search_fields = ['city']
 
 
 admin.site.register(City, CityAdmin)

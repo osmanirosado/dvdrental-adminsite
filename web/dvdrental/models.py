@@ -149,6 +149,9 @@ class Language(models.Model):
         managed = False
         db_table = 'language'
 
+    def __str__(self):
+        return self.name
+
 
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)

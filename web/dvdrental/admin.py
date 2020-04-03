@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Country, City
+from .models import *
 
 
 class CityInline(admin.StackedInline):
@@ -22,3 +22,10 @@ class CityAdmin(admin.ModelAdmin):
 
 
 admin.site.register(City, CityAdmin)
+
+
+class FilmAdmin(admin.ModelAdmin):
+    list_display = ['title', 'release_year', 'language', 'length', 'rating']
+
+
+admin.site.register(Film, FilmAdmin)

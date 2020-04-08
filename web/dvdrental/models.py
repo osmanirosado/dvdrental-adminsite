@@ -81,7 +81,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=45)
     email = models.CharField(max_length=50, blank=True, null=True)
     address = models.ForeignKey(Address, models.PROTECT)
-    activebool = models.BooleanField()
+    active_bool = models.BooleanField()
     create_date = models.DateField()
     last_update = models.DateTimeField(blank=True, null=True)
     active = models.IntegerField(blank=True, null=True)

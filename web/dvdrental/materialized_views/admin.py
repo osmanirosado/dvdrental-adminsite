@@ -22,3 +22,11 @@ class ActorInfoAdmin(MaterializedViewModelAdmin):
 
 
 admin.site.register(ActorInfo, ActorInfoAdmin)
+
+
+class CustomerListAdmin(MaterializedViewModelAdmin):
+    list_display = [x.name for x in CustomerList._meta.fields]
+    search_fields = ['name', 'address', 'city', 'country']
+
+
+admin.site.register(CustomerList, CustomerListAdmin)

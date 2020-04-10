@@ -23,7 +23,7 @@ class Actor(models.Model):
 
 
 class ActorInfo(models.Model):
-    actor_id = models.IntegerField(blank=True, null=True)
+    actor_id = models.IntegerField(blank=True, primary_key=True)
     first_name = models.CharField(max_length=45, blank=True, null=True)
     last_name = models.CharField(max_length=45, blank=True, null=True)
     film_info = models.TextField(blank=True, null=True)
@@ -103,7 +103,7 @@ class Customer(models.Model):
 
 
 class CustomerList(models.Model):
-    id = models.IntegerField(blank=True, null=True)
+    id = models.IntegerField(blank=True, primary_key=True)
     name = models.TextField(blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(db_column='zip code', max_length=10, blank=True,
@@ -169,7 +169,7 @@ class FilmCategory(models.Model):
 
 
 class FilmList(models.Model):
-    fid = models.IntegerField(blank=True, null=True)
+    fid = models.IntegerField(blank=True, primary_key=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=25, blank=True, null=True)
@@ -208,7 +208,7 @@ class Language(models.Model):
 
 
 class NicerButSlowerFilmList(models.Model):
-    fid = models.IntegerField(blank=True, null=True)
+    fid = models.IntegerField(blank=True, primary_key=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     category = models.CharField(max_length=25, blank=True, null=True)
@@ -251,7 +251,7 @@ class Rental(models.Model):
 
 
 class SalesByFilmCategory(models.Model):
-    category = models.CharField(max_length=25, blank=True, null=True)
+    category = models.CharField(max_length=25, blank=True, primary_key=True)
     total_sales = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
 
     class Meta:
@@ -260,7 +260,7 @@ class SalesByFilmCategory(models.Model):
 
 
 class SalesByStore(models.Model):
-    store = models.TextField(blank=True, null=True)
+    store = models.TextField(blank=True, primary_key=True)
     manager = models.TextField(blank=True, null=True)
     total_sales = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
 
@@ -288,7 +288,7 @@ class Staff(models.Model):
 
 
 class StaffList(models.Model):
-    id = models.IntegerField(blank=True, null=True)
+    id = models.IntegerField(blank=True, primary_key=True)
     name = models.TextField(blank=True, null=True)
     address = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(db_column='zip code', max_length=10, blank=True,

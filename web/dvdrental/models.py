@@ -22,17 +22,6 @@ class Actor(models.Model):
         return f'{self.first_name} {self.last_name}'
 
 
-class ActorInfo(models.Model):
-    actor_id = models.IntegerField(blank=True, primary_key=True)
-    first_name = models.CharField(max_length=45, blank=True, null=True)
-    last_name = models.CharField(max_length=45, blank=True, null=True)
-    film_info = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'actor_info'
-
-
 class Address(models.Model):
     address_id = models.AutoField(primary_key=True)
     address = models.CharField(max_length=50)
@@ -102,23 +91,6 @@ class Customer(models.Model):
         db_table = 'customer'
 
 
-class CustomerList(models.Model):
-    id = models.IntegerField(blank=True, primary_key=True)
-    name = models.TextField(blank=True, null=True)
-    address = models.CharField(max_length=50, blank=True, null=True)
-    zip_code = models.CharField(db_column='zip code', max_length=10, blank=True,
-                                null=True)  # Field renamed to remove unsuitable characters.
-    phone = models.CharField(max_length=20, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True, null=True)
-    notes = models.TextField(blank=True, null=True)
-    sid = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'customer_list'
-
-
 class Film(models.Model):
     film_id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
@@ -168,21 +140,6 @@ class FilmCategory(models.Model):
         unique_together = (('film', 'category'),)
 
 
-class FilmList(models.Model):
-    fid = models.IntegerField(blank=True, primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    category = models.CharField(max_length=25, blank=True, null=True)
-    price = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
-    length = models.SmallIntegerField(blank=True, null=True)
-    rating = models.TextField(blank=True, null=True)  # This field type is a guess.
-    actors = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'film_list'
-
-
 class Inventory(models.Model):
     inventory_id = models.AutoField(primary_key=True)
     film = models.ForeignKey(Film, models.PROTECT)
@@ -205,21 +162,6 @@ class Language(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class NicerButSlowerFilmList(models.Model):
-    fid = models.IntegerField(blank=True, primary_key=True)
-    title = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    category = models.CharField(max_length=25, blank=True, null=True)
-    price = models.DecimalField(max_digits=4, decimal_places=2, blank=True, null=True)
-    length = models.SmallIntegerField(blank=True, null=True)
-    rating = models.TextField(blank=True, null=True)  # This field type is a guess.
-    actors = models.TextField(blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'nicer_but_slower_film_list'
 
 
 class Payment(models.Model):
@@ -250,25 +192,6 @@ class Rental(models.Model):
         unique_together = (('rental_date', 'inventory', 'customer'),)
 
 
-class SalesByFilmCategory(models.Model):
-    category = models.CharField(max_length=25, blank=True, primary_key=True)
-    total_sales = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'sales_by_film_category'
-
-
-class SalesByStore(models.Model):
-    store = models.TextField(blank=True, primary_key=True)
-    manager = models.TextField(blank=True, null=True)
-    total_sales = models.DecimalField(max_digits=65535, decimal_places=65535, blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'sales_by_store'
-
-
 class Staff(models.Model):
     staff_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45)
@@ -285,22 +208,6 @@ class Staff(models.Model):
     class Meta:
         managed = True
         db_table = 'staff'
-
-
-class StaffList(models.Model):
-    id = models.IntegerField(blank=True, primary_key=True)
-    name = models.TextField(blank=True, null=True)
-    address = models.CharField(max_length=50, blank=True, null=True)
-    zip_code = models.CharField(db_column='zip code', max_length=10, blank=True,
-                                null=True)  # Field renamed to remove unsuitable characters.
-    phone = models.CharField(max_length=20, blank=True, null=True)
-    city = models.CharField(max_length=50, blank=True, null=True)
-    country = models.CharField(max_length=50, blank=True, null=True)
-    sid = models.SmallIntegerField(blank=True, null=True)
-
-    class Meta:
-        managed = False  # Created from a view. Don't remove.
-        db_table = 'staff_list'
 
 
 class Store(models.Model):

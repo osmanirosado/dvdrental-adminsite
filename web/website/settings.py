@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'dvdrental.apps.DvdRentalConfig',
+    'dvdrental',
+    'dvdrental.materialized_views',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -5,6 +5,7 @@
 #   * Make sure each ForeignKey has `on_delete` set to the desired behavior.
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
@@ -103,7 +104,7 @@ class Film(models.Model):
     replacement_cost = models.DecimalField(max_digits=5, decimal_places=2)
     rating = models.TextField(blank=True, null=True)  # This field type is a guess.
     last_update = models.DateTimeField(auto_now=True)
-    special_features = models.TextField(blank=True, null=True)  # This field type is a guess.
+    special_features = ArrayField(base_field=models.CharField(max_length=256))
     fulltext = models.TextField()  # This field type is a guess.
     categories = models.ManyToManyField('Category', through='FilmCategory')
     actors = models.ManyToManyField('Actor', through='FilmActor')

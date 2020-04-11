@@ -131,8 +131,8 @@ class FilmActor(models.Model):
 
 class FilmCategory(models.Model):
     film_category_id = models.AutoField(primary_key=True)
-    film = models.OneToOneField(Film, models.PROTECT)
-    category = models.OneToOneField(Category, models.PROTECT)
+    film = models.ForeignKey(Film, models.PROTECT)
+    category = models.ForeignKey(Category, models.PROTECT)
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:

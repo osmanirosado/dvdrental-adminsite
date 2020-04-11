@@ -119,8 +119,8 @@ class Film(models.Model):
 
 class FilmActor(models.Model):
     film_actor_id = models.AutoField(primary_key=True)
-    actor = models.OneToOneField(Actor, on_delete=models.PROTECT)
-    film = models.OneToOneField(Film, models.PROTECT)
+    actor = models.ForeignKey(Actor, models.PROTECT)
+    film = models.ForeignKey(Film, models.PROTECT)
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:

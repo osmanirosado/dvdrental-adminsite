@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'dvdrental',
-    'dvdrental.materialized_views',
+    'dvdrental.database_views',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

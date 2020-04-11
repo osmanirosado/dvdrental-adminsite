@@ -181,8 +181,8 @@ class Payment(models.Model):
 class Rental(models.Model):
     rental_id = models.AutoField(primary_key=True)
     rental_date = models.DateTimeField()
-    inventory = models.OneToOneField(Inventory, models.PROTECT)
-    customer = models.OneToOneField(Customer, models.PROTECT)
+    inventory = models.ForeignKey(Inventory, models.PROTECT)
+    customer = models.ForeignKey(Customer, models.PROTECT)
     return_date = models.DateTimeField(blank=True, null=True)
     staff = models.ForeignKey('Staff', models.PROTECT)
     last_update = models.DateTimeField(auto_now=True)

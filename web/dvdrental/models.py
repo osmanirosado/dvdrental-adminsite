@@ -104,7 +104,7 @@ class Film(models.Model):
     replacement_cost = models.DecimalField(max_digits=5, decimal_places=2)
     rating = models.TextField(blank=True, null=True)  # This field type is a guess.
     last_update = models.DateTimeField(auto_now=True)
-    special_features = ArrayField(base_field=models.CharField(max_length=256))
+    special_features = ArrayField(base_field=models.CharField(max_length=256), blank=True, null=True)
     fulltext = models.TextField()  # This field type is a guess.
     categories = models.ManyToManyField('Category', through='FilmCategory')
     actors = models.ManyToManyField('Actor', through='FilmActor')

@@ -8,20 +8,16 @@ class CityInline(admin.StackedInline):
     extra = 3
 
 
+@admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
     inlines = [CityInline]
     search_fields = ['country']
 
 
-admin.site.register(Country, CountryAdmin)
-
-
+@admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ['city', 'country']
     search_fields = ['city']
-
-
-admin.site.register(City, CityAdmin)
 
 
 class FilmActorInline(admin.StackedInline):
@@ -29,18 +25,14 @@ class FilmActorInline(admin.StackedInline):
     extra = 1
 
 
+@admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name']
     search_fields = ['first_name', 'last_name']
 
 
-admin.site.register(Actor, ActorAdmin)
-
-
+@admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
     list_display = ['title', 'release_year', 'language', 'length', 'rating']
     list_filter = ['categories']
     inlines = [FilmActorInline]
-
-
-admin.site.register(Film, FilmAdmin)

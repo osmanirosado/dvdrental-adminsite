@@ -15,18 +15,14 @@ class MaterializedViewModelAdmin(admin.ModelAdmin):
         return False
 
 
+@admin.register(ActorInfo)
 class ActorInfoAdmin(MaterializedViewModelAdmin):
     list_display = ['actor_id', 'first_name', 'last_name', 'film_info']
     list_per_page = 25
     search_fields = ['first_name', 'last_name']
 
 
-admin.site.register(ActorInfo, ActorInfoAdmin)
-
-
+@admin.register(CustomerList)
 class CustomerListAdmin(MaterializedViewModelAdmin):
     list_display = [x.name for x in CustomerList._meta.fields]
     search_fields = ['name', 'address', 'city', 'country']
-
-
-admin.site.register(CustomerList, CustomerListAdmin)

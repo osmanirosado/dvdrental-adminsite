@@ -201,6 +201,9 @@ class Customer(models.Model):
         managed = True
         db_table = 'customer'
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Staff(models.Model):
     staff_id = models.AutoField(primary_key=True)

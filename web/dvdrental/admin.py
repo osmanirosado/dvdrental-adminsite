@@ -77,3 +77,20 @@ class CountryAdmin(admin.ModelAdmin):
     ordering = ['country']
     search_fields = ['country']
     inlines = [CityInline]
+
+
+@admin.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = ['address', 'address2', 'district', 'city']
+    ordering = ['city', 'district', 'address']
+    search_fields = ['address', 'address2', 'district', 'city__city']
+    autocomplete_fields = ['city']
+
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'email', 'create_date', 'store_id']
+    list_display_links = ['first_name', 'last_name']
+    ordering = ['last_name', 'first_name']
+    search_fields = ['first_name', 'last_name', 'email']
+    autocomplete_fields = ['address']

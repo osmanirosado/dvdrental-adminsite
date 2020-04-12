@@ -21,6 +21,7 @@ class CityAdmin(admin.ModelAdmin):
     list_display = ['city', 'country']
     ordering = ['country', 'city']
     search_fields = ['city']
+    autocomplete_fields = ['country']
 
 
 class FilmActorInline(admin.StackedInline):

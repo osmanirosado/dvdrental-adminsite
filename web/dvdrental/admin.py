@@ -25,6 +25,7 @@ class CityAdmin(admin.ModelAdmin):
 
 class FilmActorInline(admin.StackedInline):
     model = FilmActor
+    autocomplete_fields = ['actor', 'film']
     extra = 1
 
 

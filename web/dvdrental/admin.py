@@ -5,13 +5,15 @@ from .models import *
 
 class CityInline(admin.StackedInline):
     model = City
-    extra = 3
+    extra = 1
 
 
 @admin.register(Country)
 class CountryAdmin(admin.ModelAdmin):
-    inlines = [CityInline]
+    list_display = ['country']
+    ordering = ['country']
     search_fields = ['country']
+    inlines = [CityInline]
 
 
 @admin.register(City)

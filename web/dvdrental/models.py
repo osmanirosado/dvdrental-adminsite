@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.contrib.postgres.fields import ArrayField
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 
@@ -104,22 +105,95 @@ class Customer(models.Model):
         db_table = 'customer'
 
 
-class Film(models.Model):
-    film_id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    release_year = models.IntegerField(blank=True, null=True)
-    language = models.ForeignKey('Language', models.PROTECT)
-    rental_duration = models.SmallIntegerField()
-    rental_rate = models.DecimalField(max_digits=4, decimal_places=2)
-    length = models.SmallIntegerField(blank=True, null=True)
-    replacement_cost = models.DecimalField(max_digits=5, decimal_places=2)
-    rating = models.TextField(blank=True, null=True)  # This field type is a guess.
+class Language(models.Model):
+    language_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=20)
     last_update = models.DateTimeField(auto_now=True)
-    special_features = ArrayField(base_field=models.CharField(max_length=256), blank=True, null=True)
+
+    class Meta:
+        verbose_name = 'Language'
+        verbose_name_plural = 'Languages'
+        managed = True
+        db_table = 'language'
+
+    def __str__(self):
+        return self.name
+
+
+class Film(models.Model):
+    RATING_G = 'G'
+    RATING_PG = 'PG'
+    RATING_PG_13 = 'PG-13'
+    RATING_R = 'R'
+    RATING_NC_17 = 'NC-17'
+
+    RATING_VALUES = (
+        # name, value
+        (RATING_G, RATING_G),
+        (RATING_PG, RATING_PG),
+        (RATING_R, RATING_R),
+        (RATING_NC_17, RATING_NC_17)
+    )
+
+    film_id = models.AutoField(primary_key=True)
+    categories = models.ManyToManyField(to=Category, through='FilmCategory')
+    actors = models.ManyToManyField(to=Actor, through='FilmActor')
+
+    title = models.CharField(
+        max_length=255
+    )
+    description = models.TextField(
+        null=True,
+        blank=True
+    )
+    release_year = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(limit_value=1901), MaxValueValidator(limit_value=2155)]
+    )
+    language = models.ForeignKey(
+        to=Language,
+        on_delete=models.PROTECT
+    )
+    rental_duration = models.PositiveSmallIntegerField(
+        default=3,
+        blank=True,
+        help_text='Default value: 3'
+    )
+    rental_rate = models.DecimalField(
+        max_digits=4,
+        decimal_places=2,
+        default=4.99,
+        blank=True,
+        help_text='Default value: 4.99'
+    )
+    length = models.PositiveSmallIntegerField(
+        null=True,
+        blank=True
+    )
+    replacement_cost = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        default=19.99,
+        blank=True,
+        help_text='Default value: 19.99'
+    )
+    rating = models.CharField(
+        max_length=8,
+        choices=RATING_VALUES,
+        default=RATING_G,
+        blank=True,
+        help_text=f'Default value: {RATING_G}'
+    )
+    last_update = models.DateTimeField(
+        auto_now=True
+    )
+    special_features = ArrayField(
+        base_field=models.TextField(),
+        null=True,
+        blank=True
+    )
     fulltext = models.TextField()  # This field type is a guess.
-    categories = models.ManyToManyField('Category', through='FilmCategory')
-    actors = models.ManyToManyField('Actor', through='FilmActor')
 
     class Meta:
         verbose_name = 'Film'
@@ -133,8 +207,8 @@ class Film(models.Model):
 
 class FilmActor(models.Model):
     film_actor_id = models.AutoField(primary_key=True)
-    actor = models.ForeignKey(Actor, models.PROTECT)
-    film = models.ForeignKey(Film, models.PROTECT)
+    actor = models.ForeignKey(to=Actor, on_delete=models.PROTECT)
+    film = models.ForeignKey(to=Film, on_delete=models.PROTECT)
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -145,8 +219,8 @@ class FilmActor(models.Model):
 
 class FilmCategory(models.Model):
     film_category_id = models.AutoField(primary_key=True)
-    film = models.ForeignKey(Film, models.PROTECT)
-    category = models.ForeignKey(Category, models.PROTECT)
+    film = models.ForeignKey(to=Film, on_delete=models.PROTECT)
+    category = models.ForeignKey(to=Category, on_delete=models.PROTECT)
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
@@ -166,21 +240,6 @@ class Inventory(models.Model):
         verbose_name_plural = 'Inventory'
         managed = True
         db_table = 'inventory'
-
-
-class Language(models.Model):
-    language_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=20)
-    last_update = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = 'Language'
-        verbose_name_plural = 'Languages'
-        managed = True
-        db_table = 'language'
-
-    def __str__(self):
-        return self.name
 
 
 class Payment(models.Model):

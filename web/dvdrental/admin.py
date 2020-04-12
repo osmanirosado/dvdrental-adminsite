@@ -59,11 +59,13 @@ class FilmAdmin(admin.ModelAdmin):
     list_filter = ['categories', 'language']
 
     fieldsets = (
-        (None, {
-            'fields': ('title', 'description', 'release_year', 'language', 'length', 'special_features', 'fulltext',
-                       'rating')
+        ('Film Details', {
+            'fields': ('title', 'description', 'release_year', 'language', 'length', 'rating')
         }),
-        ('Rental', {
+        ('More Film Details', {
+            'fields': ('special_features', 'fulltext')
+        }),
+        ('Rental Conditions', {
             'fields': ('rental_duration', 'rental_rate', 'replacement_cost')
         })
     )

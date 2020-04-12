@@ -54,6 +54,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
     list_display = ['title', 'release_year', 'language', 'length', 'rating']
+    ordering = ['release_year', 'title']
     search_fields = ['title']
     list_filter = ['categories', 'language']
 

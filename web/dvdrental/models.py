@@ -16,6 +16,8 @@ class Actor(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Actor'
+        verbose_name_plural = 'Actors'
         managed = True
         db_table = 'actor'
 
@@ -34,6 +36,8 @@ class Address(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Address'
+        verbose_name_plural = 'Addresses'
         managed = True
         db_table = 'address'
 
@@ -44,6 +48,8 @@ class Category(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
         managed = True
         db_table = 'category'
 
@@ -58,6 +64,8 @@ class City(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'City'
+        verbose_name_plural = 'Cities'
         managed = True
         db_table = 'city'
 
@@ -68,6 +76,8 @@ class Country(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Country'
+        verbose_name_plural = 'Countries'
         managed = True
         db_table = 'country'
 
@@ -88,6 +98,8 @@ class Customer(models.Model):
     active = models.IntegerField(blank=True, null=True)
 
     class Meta:
+        verbose_name = 'Customer'
+        verbose_name_plural = 'Customers'
         managed = True
         db_table = 'customer'
 
@@ -110,6 +122,8 @@ class Film(models.Model):
     actors = models.ManyToManyField('Actor', through='FilmActor')
 
     class Meta:
+        verbose_name = 'Film'
+        verbose_name_plural = 'Films'
         managed = True
         db_table = 'film'
 
@@ -148,6 +162,8 @@ class Inventory(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Inventory'
+        verbose_name_plural = 'Inventory'
         managed = True
         db_table = 'inventory'
 
@@ -158,6 +174,8 @@ class Language(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Language'
+        verbose_name_plural = 'Languages'
         managed = True
         db_table = 'language'
 
@@ -174,6 +192,8 @@ class Payment(models.Model):
     payment_date = models.DateTimeField()
 
     class Meta:
+        verbose_name = 'Payment'
+        verbose_name_plural = 'Payments'
         managed = True
         db_table = 'payment'
 
@@ -188,6 +208,8 @@ class Rental(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Rental'
+        verbose_name_plural = 'Rental'
         managed = True
         db_table = 'rental'
         unique_together = (('rental_date', 'inventory', 'customer'),)
@@ -207,6 +229,8 @@ class Staff(models.Model):
     picture = models.BinaryField(blank=True, null=True)
 
     class Meta:
+        verbose_name = 'Staff'
+        verbose_name_plural = 'Staff'
         managed = True
         db_table = 'staff'
 
@@ -218,5 +242,7 @@ class Store(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
+        verbose_name = 'Store'
+        verbose_name_plural = 'Stores'
         managed = True
         db_table = 'store'

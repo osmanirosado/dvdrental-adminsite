@@ -38,7 +38,15 @@ class ActorAdmin(admin.ModelAdmin):
 
 class FilmCategoryInline(admin.StackedInline):
     model = FilmCategory
+    autocomplete_fields = ['category']
     extra = 1
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    ordering = ['name']
+    search_fields = ['name']
 
 
 @admin.register(Film)

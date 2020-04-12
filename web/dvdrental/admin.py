@@ -10,31 +10,11 @@ class LanguageAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 
-class CityInline(admin.StackedInline):
-    model = City
-    extra = 1
-
-
-@admin.register(Country)
-class CountryAdmin(admin.ModelAdmin):
-    list_display = ['country']
-    ordering = ['country']
-    search_fields = ['country']
-    inlines = [CityInline]
-
-
-@admin.register(City)
-class CityAdmin(admin.ModelAdmin):
-    list_display = ['city', 'country']
-    ordering = ['country', 'city']
-    search_fields = ['city']
-    autocomplete_fields = ['country']
-
-
-class FilmActorInline(admin.StackedInline):
-    model = FilmActor
-    autocomplete_fields = ['actor', 'film']
-    extra = 1
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    ordering = ['name']
+    search_fields = ['name']
 
 
 @admin.register(Actor)
@@ -51,11 +31,10 @@ class FilmCategoryInline(admin.StackedInline):
     extra = 1
 
 
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['name']
-    ordering = ['name']
-    search_fields = ['name']
+class FilmActorInline(admin.StackedInline):
+    model = FilmActor
+    autocomplete_fields = ['actor', 'film']
+    extra = 1
 
 
 @admin.register(Film)
@@ -77,3 +56,24 @@ class FilmAdmin(admin.ModelAdmin):
         })
     )
     inlines = [FilmActorInline, FilmCategoryInline]
+
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ['city', 'country']
+    ordering = ['country', 'city']
+    search_fields = ['city']
+    autocomplete_fields = ['country']
+
+
+class CityInline(admin.StackedInline):
+    model = City
+    extra = 1
+
+
+@admin.register(Country)
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ['country']
+    ordering = ['country']
+    search_fields = ['country']
+    inlines = [CityInline]

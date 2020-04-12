@@ -17,6 +17,7 @@ class CountryAdmin(admin.ModelAdmin):
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
     list_display = ['city', 'country']
+    ordering = ['country', 'city']
     search_fields = ['city']
 
 

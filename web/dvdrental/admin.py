@@ -35,8 +35,24 @@ class ActorAdmin(admin.ModelAdmin):
     search_fields = ['first_name', 'last_name']
 
 
+class FilmCategoryInline(admin.StackedInline):
+    model = FilmCategory
+    extra = 1
+
+
 @admin.register(Film)
 class FilmAdmin(admin.ModelAdmin):
     list_display = ['title', 'release_year', 'language', 'length', 'rating']
-    list_filter = ['categories']
-    inlines = [FilmActorInline]
+    search_fields = ['title']
+    list_filter = ['categories', 'language']
+
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description', 'release_year', 'language', 'length', 'special_features', 'fulltext',
+                       'rating')
+        }),
+        ('Rental', {
+            'fields': ('rental_duration', 'rental_rate', 'replacement_cost')
+        })
+    )
+    inlines = [FilmActorInline, FilmCategoryInline]

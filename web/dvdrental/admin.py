@@ -3,6 +3,13 @@ from django.contrib import admin
 from .models import *
 
 
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    ordering = ['name']
+    search_fields = ['name']
+
+
 class CityInline(admin.StackedInline):
     model = City
     extra = 1

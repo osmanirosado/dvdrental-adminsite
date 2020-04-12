@@ -32,6 +32,7 @@ class FilmActorInline(admin.StackedInline):
 @admin.register(Actor)
 class ActorAdmin(admin.ModelAdmin):
     list_display = ['first_name', 'last_name']
+    list_display_links = ['first_name', 'last_name']
     ordering = ['last_name', 'first_name']
     search_fields = ['first_name', 'last_name']
 

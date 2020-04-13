@@ -129,3 +129,11 @@ class RentalAdmin(admin.ModelAdmin):
     #     return False
 
     exclude = ['rental_date', 'inventory', 'customer', 'staff']
+
+
+@admin.register(Store)
+class StoreAdmin(admin.ModelAdmin):
+    list_display = ['store_id', 'manager_staff', 'address']
+    search_fields = ['store_id', 'address__address', 'address__district',
+                     'manager_staff__first_name', 'manager_staff__last_name']
+    autocomplete_fields = ['manager_staff', 'address']

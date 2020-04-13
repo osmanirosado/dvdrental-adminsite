@@ -271,6 +271,9 @@ class Rental(models.Model):
         if self.return_date is not None and self.return_date < self.rental_date:
             raise ValidationError('The return date must be after the rental date')
 
+    def __str__(self):
+        return f'{self.customer} rents the movie: {self.inventory.film}'
+
 
 class Payment(models.Model):
     payment_id = models.AutoField(primary_key=True)
@@ -285,6 +288,9 @@ class Payment(models.Model):
         verbose_name_plural = 'Payments'
         managed = True
         db_table = 'payment'
+
+    def rental_id(self):
+        return self.rental.rental_id
 
 
 class Store(models.Model):

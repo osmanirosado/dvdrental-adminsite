@@ -131,6 +131,17 @@ class RentalAdmin(admin.ModelAdmin):
     exclude = ['rental_date', 'inventory', 'customer', 'staff']
 
 
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    # how add a link to rental object
+    list_display = ['payment_id', 'customer', 'staff', 'rental_id', 'amount', 'payment_date']
+    list_select_related = ['rental']
+    search_fields = ['payment_id', 'customer__first_name', 'customer__last_name']
+
+    # assuming that a customer can pay the rent of another customer
+    autocomplete_fields = ['customer', 'staff', 'rental']
+
+
 @admin.register(Store)
 class StoreAdmin(admin.ModelAdmin):
     list_display = ['store_id', 'manager_staff', 'address']

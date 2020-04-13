@@ -56,6 +56,7 @@ class FilmAdmin(admin.ModelAdmin):
         })
     )
     inlines = [FilmActorInline, FilmCategoryInline]
+    radio_fields = {'rating': admin.VERTICAL}
 
 
 @admin.register(City)

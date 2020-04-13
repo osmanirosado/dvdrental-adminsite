@@ -19,7 +19,7 @@ class Language(models.Model):
     class Meta:
         verbose_name = 'Language'
         verbose_name_plural = 'Languages'
-        managed = True
+        managed = False
         db_table = 'language'
 
     def __str__(self):
@@ -34,7 +34,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-        managed = True
+        managed = False
         db_table = 'category'
 
     def __str__(self):
@@ -50,7 +50,7 @@ class Actor(models.Model):
     class Meta:
         verbose_name = 'Actor'
         verbose_name_plural = 'Actors'
-        managed = True
+        managed = False
         db_table = 'actor'
 
     def __str__(self):
@@ -102,7 +102,7 @@ class Film(models.Model):
     class Meta:
         verbose_name = 'Film'
         verbose_name_plural = 'Films'
-        managed = True
+        managed = False
         db_table = 'film'
 
     def __str__(self):
@@ -116,7 +116,7 @@ class FilmActor(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'film_actor'
         unique_together = (('film', 'actor'),)
 
@@ -128,7 +128,7 @@ class FilmCategory(models.Model):
     last_update = models.DateTimeField(auto_now=True)
 
     class Meta:
-        managed = True
+        managed = False
         db_table = 'film_category'
         unique_together = (('film', 'category'),)
 
@@ -141,7 +141,7 @@ class Country(models.Model):
     class Meta:
         verbose_name = 'Country'
         verbose_name_plural = 'Countries'
-        managed = True
+        managed = False
         db_table = 'country'
 
     def __str__(self):
@@ -157,7 +157,7 @@ class City(models.Model):
     class Meta:
         verbose_name = 'City'
         verbose_name_plural = 'Cities'
-        managed = True
+        managed = False
         db_table = 'city'
 
     def __str__(self):
@@ -177,7 +177,7 @@ class Address(models.Model):
     class Meta:
         verbose_name = 'Address'
         verbose_name_plural = 'Addresses'
-        managed = True
+        managed = False
         db_table = 'address'
 
     def __str__(self):
@@ -191,7 +191,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=45)
     email = models.EmailField(max_length=50, blank=True, null=True)
     address = models.ForeignKey(to=Address, on_delete=models.PROTECT)
-    active_bool = models.BooleanField(default=True, blank=True, help_text='Default: True')
+    activebool = models.BooleanField(default=True, blank=True, help_text='Default: True')
     create_date = models.DateField(auto_now_add=True)
     last_update = models.DateTimeField(auto_now=True)
     active = models.IntegerField(blank=True, null=True)
@@ -199,7 +199,7 @@ class Customer(models.Model):
     class Meta:
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
-        managed = True
+        managed = False
         db_table = 'customer'
 
     def __str__(self):
@@ -222,7 +222,7 @@ class Staff(models.Model):
     class Meta:
         verbose_name = 'Staff'
         verbose_name_plural = 'Staff'
-        managed = True
+        managed = False
         db_table = 'staff'
 
     def __str__(self):
@@ -238,7 +238,7 @@ class Inventory(models.Model):
     class Meta:
         verbose_name = 'Inventory'
         verbose_name_plural = 'Inventory'
-        managed = True
+        managed = False
         db_table = 'inventory'
 
     def __str__(self):
@@ -257,7 +257,7 @@ class Rental(models.Model):
     class Meta:
         verbose_name = 'Rental'
         verbose_name_plural = 'Rental'
-        managed = True
+        managed = False
         db_table = 'rental'
         unique_together = (('rental_date', 'inventory', 'customer'),)
 
@@ -286,7 +286,7 @@ class Payment(models.Model):
     class Meta:
         verbose_name = 'Payment'
         verbose_name_plural = 'Payments'
-        managed = True
+        managed = False
         db_table = 'payment'
 
     def rental_id(self):
@@ -302,5 +302,5 @@ class Store(models.Model):
     class Meta:
         verbose_name = 'Store'
         verbose_name_plural = 'Stores'
-        managed = True
+        managed = False
         db_table = 'store'

@@ -94,3 +94,20 @@ class CustomerAdmin(admin.ModelAdmin):
     ordering = ['last_name', 'first_name']
     search_fields = ['first_name', 'last_name', 'email']
     autocomplete_fields = ['address']
+
+
+@admin.register(Staff)
+class StaffAdmin(admin.ModelAdmin):
+    list_display = ['first_name', 'last_name', 'email', 'active']
+    list_display_links = ['first_name', 'last_name']
+    ordering = ['last_name', 'first_name']
+    search_fields = ['first_name', 'last_name', 'email']
+    autocomplete_fields = ['address']
+
+
+@admin.register(Inventory)
+class InventoryAdmin(admin.ModelAdmin):
+    list_display = ['inventory_id', 'film', 'store_id']
+    ordering = ['store_id', 'film']
+    search_fields = ['film__title']
+    autocomplete_fields = ['film']

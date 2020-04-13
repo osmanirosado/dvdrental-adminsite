@@ -224,6 +224,9 @@ class Staff(models.Model):
         managed = True
         db_table = 'staff'
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class Inventory(models.Model):
     inventory_id = models.AutoField(primary_key=True)

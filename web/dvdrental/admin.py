@@ -111,3 +111,21 @@ class InventoryAdmin(admin.ModelAdmin):
     ordering = ['store_id', 'film']
     search_fields = ['film__title']
     autocomplete_fields = ['film']
+
+
+@admin.register(Rental)
+class RentalAdmin(admin.ModelAdmin):
+    list_display = ['rental_id', 'rental_date', 'film', 'store_id', 'customer', 'return_date', 'staff']
+    list_select_related = ['inventory__film']
+    list_editable = ['return_date']
+    list_per_page = 12
+    search_fields = ['inventory__film__title', 'customer__first_name', 'customer__last_name']
+
+    # Para permitir agregar o modificar hay que filtrar las peliculas disponibles en el inventario
+    def has_add_permission(self, request):
+        return False
+
+    # def has_change_permission(self, request, obj=None):
+    #     return False
+
+    exclude = ['rental_date', 'inventory', 'customer', 'staff']

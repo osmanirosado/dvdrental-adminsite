@@ -6,6 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.contrib.postgres.fields import ArrayField
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
@@ -240,6 +241,9 @@ class Inventory(models.Model):
         managed = True
         db_table = 'inventory'
 
+    def __str__(self):
+        return f'{self.film} (store_id={self.store_id})'
+
 
 class Rental(models.Model):
     rental_id = models.AutoField(primary_key=True)
@@ -256,6 +260,16 @@ class Rental(models.Model):
         managed = True
         db_table = 'rental'
         unique_together = (('rental_date', 'inventory', 'customer'),)
+
+    def film(self):
+        return self.inventory.film
+
+    def store_id(self):
+        return self.inventory.store_id
+
+    def clean(self):
+        if self.return_date is not None and self.return_date < self.rental_date:
+            raise ValidationError('The return date must be after the rental date')
 
 
 class Payment(models.Model):

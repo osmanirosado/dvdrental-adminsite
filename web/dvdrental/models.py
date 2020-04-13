@@ -68,6 +68,7 @@ class Film(models.Model):
         # name, value
         (RATING_G, RATING_G),
         (RATING_PG, RATING_PG),
+        (RATING_PG_13, RATING_PG_13),
         (RATING_R, RATING_R),
         (RATING_NC_17, RATING_NC_17)
     )

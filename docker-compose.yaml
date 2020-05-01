@@ -17,6 +17,8 @@ services:
     build: db
     image: osmanirosado/dvdrental-website-db:2020.04.02
     restart: always
+    ports:
+      - 8097:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example

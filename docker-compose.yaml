@@ -14,8 +14,7 @@ services:
       - db
 
   db:
-    build: db
-    image: osmanirosado/dvdrental-website-db:2020.04.02
+    image: osmanirosado/dvdrental-database-django:2019.05
     restart: always
     ports:
       - 8097:5432

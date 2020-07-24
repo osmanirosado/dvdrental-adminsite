@@ -22,15 +22,3 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
       POSTGRES_PORT: 5432
-
-  pgadmin:
-    image: dpage/pgadmin4:4.18
-    restart: always
-    ports:
-      - 8098:80
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ernesto
-      PGADMIN_DEFAULT_PASSWORD: example
-    depends_on:
-      - db
-

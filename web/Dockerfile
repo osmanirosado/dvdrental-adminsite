@@ -19,11 +19,11 @@ RUN pip install --no-cache-dir -r /root/requirements.txt
 USER django
 WORKDIR /home/django
 
-# Create the project directory
-RUN mkdir project
+# Create the code directory
+RUN mkdir code
 
 # Copy project code into container
-COPY --chown=django:django . project
+COPY --chown=django:django . code
 
-# Change to project directory
-WORKDIR project
+# Change to code directory
+WORKDIR code

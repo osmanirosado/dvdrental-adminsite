@@ -6,7 +6,7 @@ services:
     image: osmanirosado/dvdrental-adminsite:2020.07.23
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - ./web:/home/django/project
+      - ./web:/home/django/code
     ports:
       - 8096:8000
     user: 1000:1000

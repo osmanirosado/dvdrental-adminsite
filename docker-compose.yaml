@@ -4,21 +4,22 @@ services:
   web:
     build: web
     image: osmanirosado/dvdrental-adminsite:2020.07.23
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:${DJANGO_PORT}
+    env_file:
+      - .env
     volumes:
       - ./web:/home/django/code
     ports:
-      - 8096:8000
+      - 8096:${DJANGO_PORT}
     user: 1000:1000
     depends_on:
       - db
 
   db:
     image: osmanirosado/dvdrental-database-django:2019.05
+    hostname: ${POSTGRES_HOST}
     restart: always
     ports:
-      - 8097:5432
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: example
-      POSTGRES_PORT: 5432
+      - 8097:${POSTGRES_PORT}
+    env_file:
+      - .env

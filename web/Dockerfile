@@ -27,3 +27,9 @@ COPY --chown=django:django . code
 
 # Change to code directory
 WORKDIR code
+
+# Wait until the database is ready to accept connections, then execute the command
+ENTRYPOINT ["python", "waitfordb.py"]
+
+# Run python development server by default
+CMD ["bash", "runserver.sh"]

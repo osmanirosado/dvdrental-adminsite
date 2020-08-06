@@ -4,7 +4,6 @@ services:
   web:
     build: web
     image: osmanirosado/dvdrental-adminsite:2020.07.23
-    command: python manage.py runserver 0.0.0.0:${DJANGO_PORT}
     env_file:
       - .env
     volumes:

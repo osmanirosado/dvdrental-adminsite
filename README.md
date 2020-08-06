@@ -4,21 +4,13 @@ Example project to explore Django admin site features using DVD Rental PostgreSQ
 
 ## Configuring the website
 
-Start db service to setup DVD Rental database.
-
-```shell script
-docker-compose up db
-```
-
-Wait until the database system is ready to accept connections.
-
-Apply database migrations for Django applications.
+Apply database migrations.
 
 ```shell script
 docker-compose run web python manage.py migrate
 ```
 
-Create a super user for Django admin site.
+Create a super user.
 
 ```shell script
 docker-compose run web python manage.py createsuperuser
@@ -26,7 +18,7 @@ docker-compose run web python manage.py createsuperuser
 
 ## Running the website
 
-Start web service.
+Start the web service.
 
 ```shell script
 docker-compose up

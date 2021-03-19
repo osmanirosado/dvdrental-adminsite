@@ -1,5 +1,5 @@
 # https://www.djangoproject.com/download/
-Django==2.2.14
+Django==2.2.18
 
 # Psycopg is a PostgreSQL for the Python programming language
 # It is a wrapper for the libpq, the official PostgreSQL client library.

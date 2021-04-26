@@ -17,7 +17,6 @@ services:
   db:
     image: osmanirosado/dvdrental-database-django:2019.05
     hostname: ${POSTGRES_HOST}
-    restart: always
     ports:
       - 8097:${POSTGRES_PORT}
     env_file:
